@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useRef } from "react"
-import { CheckSquare, ArrowLeft, Upload, Loader2, FileCheck, Key, AlertTriangle, CheckCircle } from 'lucide-react'
+import { CheckSquare, ArrowLeft, Upload, Loader2, FileCheck, Key, AlertTriangle, CheckCircle, Calendar, XCircle, Clock } from 'lucide-react'
 import Link from "next/link"
 
 export default function VerifyPage() {
   const [file, setFile] = useState(null)
   const [signature, setSignature] = useState("")
-  const [result, setResult] = useState("")
+  const [verificationResult, setVerificationResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const fileInputRef = useRef(null)
 
@@ -15,7 +15,7 @@ export default function VerifyPage() {
     e.preventDefault()
 
     setLoading(true)
-    setResult("")
+    setVerificationResult(null)
 
     const formData = new FormData()
     formData.append("file", file)
@@ -28,13 +28,95 @@ export default function VerifyPage() {
       })
 
       const data = await res.json()
-      setResult(JSON.stringify(data, null, 2))
+      setVerificationResult(data)
     } catch (error) {
-      setResult("Error: " + error.message)
+      setVerificationResult({
+        valid: false,
+        pesan: "Error: " + error.message
+      })
     } finally {
       setLoading(false)
     }
   }
+
+  // Render hasil verifikasi dengan tampilan yang lebih baik
+  const renderVerificationResult = () => {
+    if (!verificationResult) return null;
+    
+    // Cek hasil verifikasi
+    if (verificationResult.valid) {
+      // Tanda tangan valid
+      return (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <CheckCircle className="h-8 w-8 text-green-500" />
+            <div>
+              <h3 className="text-lg font-medium text-green-800">Tanda Tangan Valid</h3>
+              <p className="text-green-700">
+                Dokumen ini memiliki tanda tangan digital yang valid.
+              </p>
+            </div>
+          </div>
+          
+          {/* Tampilkan informasi masa berlaku */}
+          {verificationResult.validUntil && (
+            <div className="flex items-center gap-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <Calendar className="h-6 w-6 text-blue-500" />
+              <div>
+                <h3 className="font-medium text-blue-800">Berlaku Hingga</h3>
+                <p className="text-blue-700">{verificationResult.validUntil}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    } else {
+      // Tanda tangan tidak valid
+      // Cek apakah karena kedaluwarsa
+      const isExpired = verificationResult.pesan?.includes("kedaluwarsa") || 
+                        verificationResult.pesan?.includes("expired");
+      
+      if (isExpired) {
+        return (
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+              <Clock className="h-8 w-8 text-orange-500" />
+              <div>
+                <h3 className="text-lg font-medium text-orange-800">Tanda Tangan Sudah Kedaluwarsa</h3>
+                <p className="text-orange-700">
+                  {verificationResult.pesan || "Tanda tangan digital sudah melewati masa berlakunya."}
+                </p>
+              </div>
+            </div>
+            
+            {/* Tampilkan kapan kedaluwarsa */}
+            {verificationResult.expiredAt && (
+              <div className="flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+                <Calendar className="h-6 w-6 text-slate-500" />
+                <div>
+                  <h3 className="font-medium text-slate-800">Kedaluwarsa Pada</h3>
+                  <p className="text-slate-700">{verificationResult.expiredAt}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      } else {
+        // Tidak valid karena alasan lain
+        return (
+          <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <XCircle className="h-8 w-8 text-red-500" />
+            <div>
+              <h3 className="text-lg font-medium text-red-800">Tanda Tangan Tidak Valid</h3>
+              <p className="text-red-700">
+                {verificationResult.pesan || "Dokumen ini memiliki tanda tangan digital yang tidak valid."}
+              </p>
+            </div>
+          </div>
+        );
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 py-12 px-4">
@@ -131,33 +213,27 @@ export default function VerifyPage() {
             </form>
 
             {/* Results Section */}
-            {result && (
+            {verificationResult && (
               <div className="mt-8 border border-slate-200 rounded-lg overflow-hidden">
                 <div className="bg-slate-50 px-4 py-3 border-b border-slate-200">
                   <h2 className="font-medium text-slate-900 flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
+                    <CheckSquare className="h-5 w-5 text-green-500" />
                     Hasil Verifikasi
                   </h2>
                 </div>
 
                 <div className="p-4">
-                  <div className="bg-slate-50 border border-slate-200 p-3 rounded-md text-sm overflow-x-auto">
-                    <pre className="whitespace-pre-wrap break-all text-slate-700">{result}</pre>
+                  {renderVerificationResult()}
+                  
+                  {/* Raw data (optional, only for debugging) */}
+                  {/*
+                  <div className="mt-4 bg-slate-50 border border-slate-200 p-3 rounded-md text-sm overflow-x-auto">
+                    <h3 className="font-medium text-xs text-slate-700 mb-2">Raw Response:</h3>
+                    <pre className="whitespace-pre-wrap break-all text-slate-700">
+                      {JSON.stringify(verificationResult, null, 2)}
+                    </pre>
                   </div>
-
-                  {result.includes("Error") ? (
-                    <div className="mt-4 flex items-start gap-2 bg-red-50 text-red-800 p-3 rounded-md text-sm">
-                      <AlertTriangle className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                      <p>
-                        Terjadi kesalahan saat memverifikasi tanda tangan. Periksa kembali file dan tanda tangan
-                        yang dimasukkan.
-                      </p>
-                    </div>
-                  ) : (
-                    <p className="mt-3 text-xs text-slate-500">
-                      Hasil verifikasi tanda tangan. Pastikan semua bagian tanda tangan terverifikasi dengan benar.
-                    </p>
-                  )}
+                  */}
                 </div>
               </div>
             )}
