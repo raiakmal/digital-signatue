@@ -1,29 +1,40 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css"
+import { Inter, Playfair_Display } from "next/font/google"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { ThemeProvider } from "@/components/theme-provider"
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
   subsets: ["latin"],
-});
+  variable: "--font-sans",
+})
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+})
 
 export const metadata = {
-  title: "SHIELD",
-  description: "Secure Hash for Integrated Electronic Design Protection",
-};
+  title: "SHIELD - Perlindungan Dokumen Kolaboratif di Industri Fashion Digital",
+  description:
+    "Secure Hash for Integrated Electronic Design Protection menggunakan Digital Signature ECDSA dan Hash Function BLAKE3.",
+}
+
+export function generateViewport() {
+  return {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  }
+}
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="id" suppressHydrationWarning>
+      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

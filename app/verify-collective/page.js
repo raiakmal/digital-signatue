@@ -1,61 +1,112 @@
-"use client"
+"use client";
 
-import { useState, useRef } from "react"
-import { CheckSquare, ArrowLeft, Upload, Loader2, FileCheck, Key, AlertTriangle, CheckCircle } from 'lucide-react'
-import Link from "next/link"
+import { useState, useRef } from "react";
+import {
+  CheckSquare,
+  ArrowLeft,
+  Upload,
+  Loader2,
+  FileCheck,
+  Key,
+  AlertTriangle,
+  CheckCircle,
+  FileDigit,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function VerifyCollectivePage() {
-  const [file, setFile] = useState(null)
-  const [signature, setSignature] = useState("")
-  const [result, setResult] = useState("")
-  const [loading, setLoading] = useState(false)
-  const fileInputRef = useRef(null)
+  const [file, setFile] = useState(null);
+  const [signature, setSignature] = useState("");
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    setLoading(true)
-    setResult("")
+    setLoading(true);
+    setResult("");
 
-    const formData = new FormData()
-    formData.append("file", file)
-    formData.append("signature", signature)
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("signature", signature);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/signature/verifyCollective`, {
-        method: "POST",
-        body: formData,
-      })
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/signature/verifyCollective`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-      const data = await res.json()
-      setResult(JSON.stringify(data, null, 2))
+      const data = await res.json();
+      setResult(JSON.stringify(data, null, 2));
     } catch (error) {
-      setResult("Error: " + error.message)
+      setResult("Error: " + error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-[#0e1424] to-[#0a0e18] py-6 px-4 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-[#d4af37]/5 blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-64 h-64 rounded-full bg-[#d4af37]/5 blur-3xl"></div>
+        <div className="absolute top-1/4 right-1/4 w-40 h-40 rounded-full bg-[#b8860b]/5 blur-3xl"></div>
+
+        {/* Gold accent lines */}
+        <div className="absolute top-20 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/20 to-transparent"></div>
+        <div className="absolute bottom-20 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/20 to-transparent"></div>
+      </div>
+
       <div className="max-w-3xl mx-auto">
-        {/* Header with back button */}
-        <div className="mb-8">
-          <Link href="/" className="inline-flex items-center text-slate-600 hover:text-slate-900 transition-colors">
+        {/* Header with logo and back button */}
+        <div className="mb-8 flex items-center justify-between">
+          <Link
+            href="/"
+            className="inline-flex items-center text-[#d4af37] hover:text-[#f0d77c] transition-colors"
+          >
             <ArrowLeft className="h-4 w-4 mr-2" />
             <span>Kembali ke Beranda</span>
           </Link>
+          <div className="flex items-center">
+            <FileDigit className="h-6 w-6 text-[#d4af37] mr-2" />
+            <span className="text-[#d4af37] font-semibold text-lg">
+              Digital Signature
+            </span>
+          </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+        {/* Main title */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-[#d4af37] mb-2">
+            Verifikasi Tanda Tangan Kolektif
+          </h1>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#b8860b] to-[#d4af37] mx-auto"></div>
+        </div>
+
+        <div className="bg-[#131b2e] rounded-2xl shadow-xl shadow-black/40 overflow-hidden border border-[#d4af37]/20 backdrop-blur-sm relative">
+          {/* Subtle corner accents */}
+          <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#d4af37]/40 rounded-tl-md"></div>
+          <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#d4af37]/40 rounded-tr-md"></div>
+          <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#d4af37]/40 rounded-bl-md"></div>
+          <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#d4af37]/40 rounded-br-md"></div>
+
           {/* Header */}
-          <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-5 text-white">
-            <div className="flex items-center gap-3">
+          <div className="bg-gradient-to-r from-[#b8860b] to-[#d4af37] px-6 py-5 text-black relative">
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjMDAwMDAwMTAiPjwvcmVjdD4KPHBhdGggZD0iTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVoiIHN0cm9rZT0iIzAwMDAwMDEwIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+')] opacity-30"></div>
+            <div className="flex items-center gap-3 relative z-10">
               <CheckSquare className="h-6 w-6" />
-              <h1 className="text-2xl font-bold">Verifikasi Tanda Tangan Kolektif</h1>
+              <h1 className="text-2xl font-bold">
+                Verifikasi Tanda Tangan Kolektif
+              </h1>
             </div>
-            <p className="mt-1 text-indigo-100">
-              Verifikasi keaslian dokumen yang telah ditandatangani secara kolektif
+            <p className="mt-1 text-[#1a1a1a] relative z-10">
+              Verifikasi keaslian dokumen yang telah ditandatangani secara
+              kolektif
             </p>
           </div>
 
@@ -63,10 +114,13 @@ export default function VerifyCollectivePage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* File Upload */}
               <div>
-                <label htmlFor="file" className="block text-sm font-medium text-slate-700 mb-1">
+                <label
+                  htmlFor="file"
+                  className="block text-sm font-medium text-[#d4af37] mb-1"
+                >
                   Pilih File untuk Diverifikasi
                 </label>
-                <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-indigo-500 transition-colors">
+                <div className="border-2 border-dashed border-[#d4af37]/40 rounded-lg p-6 text-center hover:border-[#d4af37] transition-colors bg-[#0e1424]/50">
                   <input
                     id="file"
                     type="file"
@@ -76,11 +130,13 @@ export default function VerifyCollectivePage() {
                     required
                   />
                   <label htmlFor="file" className="cursor-pointer">
-                    <Upload className="h-10 w-10 text-slate-400 mx-auto mb-2" />
-                    <p className="text-sm text-slate-600 mb-1">
-                      {file ? file.name : "Klik untuk memilih file atau tarik dan lepas file di sini"}
+                    <Upload className="h-10 w-10 text-[#d4af37]/70 mx-auto mb-2" />
+                    <p className="text-sm text-[#d4af37]/90 mb-1">
+                      {file
+                        ? file.name
+                        : "Klik untuk memilih file atau tarik dan lepas file di sini"}
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-[#d4af37]/70">
                       {file
                         ? `${(file.size / 1024).toFixed(2)} KB`
                         : "Pilih file yang ingin diverifikasi tanda tangannya"}
@@ -91,12 +147,15 @@ export default function VerifyCollectivePage() {
 
               {/* Signature Input */}
               <div>
-                <label htmlFor="signature" className="block text-sm font-medium text-slate-700 mb-1">
+                <label
+                  htmlFor="signature"
+                  className="block text-sm font-medium text-[#d4af37] mb-1"
+                >
                   Tanda Tangan Kolektif
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Key className="h-5 w-5 text-slate-400" />
+                    <Key className="h-5 w-5 text-[#d4af37]/70" />
                   </div>
                   <input
                     id="signature"
@@ -104,11 +163,11 @@ export default function VerifyCollectivePage() {
                     placeholder="HASH||DESIGNER_SIGNATURE||BRAND_SIGNATURE"
                     value={signature}
                     onChange={(e) => setSignature(e.target.value)}
-                    className="w-full pl-10 p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                    className="w-full pl-10 p-3 border border-[#d4af37]/30 rounded-md bg-[#0e1424] text-[#e0c56e] placeholder:text-[#d4af37]/50 focus:outline-none focus:ring-2 focus:ring-[#d4af37] transition-all"
                     required
                   />
                 </div>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-[#d4af37]/60">
                   Format: HASH||DESIGNER_SIGNATURE||BRAND_SIGNATURE
                 </p>
               </div>
@@ -116,7 +175,7 @@ export default function VerifyCollectivePage() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#b8860b] to-[#d4af37] text-black py-3.5 px-4 rounded-lg hover:from-[#d4af37] hover:to-[#f0d77c] transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                 disabled={loading || !file || !signature}
               >
                 {loading ? (
@@ -135,30 +194,34 @@ export default function VerifyCollectivePage() {
 
             {/* Results Section */}
             {result && (
-              <div className="mt-8 border border-slate-200 rounded-lg overflow-hidden">
-                <div className="bg-slate-50 px-4 py-3 border-b border-slate-200">
-                  <h2 className="font-medium text-slate-900 flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
+              <div className="mt-8 border border-[#d4af37]/30 rounded-lg overflow-hidden bg-[#0c1526]/50">
+                <div className="bg-[#131b2e] px-4 py-3 border-b border-[#d4af37]/30">
+                  <h2 className="font-medium text-[#d4af37] flex items-center gap-2">
+                    <CheckCircle className="h-5 w-5 text-[#d4af37]" />
                     Hasil Verifikasi
                   </h2>
                 </div>
 
                 <div className="p-4">
-                  <div className="bg-slate-50 border border-slate-200 p-3 rounded-md text-sm overflow-x-auto">
-                    <pre className="whitespace-pre-wrap break-all text-slate-700">{result}</pre>
+                  <div className="bg-[#0e1424] border border-[#d4af37]/20 p-3 rounded-md text-sm overflow-x-auto">
+                    <pre className="whitespace-pre-wrap break-all text-[#e0c56e]">
+                      {result}
+                    </pre>
                   </div>
 
                   {result.includes("Error") ? (
-                    <div className="mt-4 flex items-start gap-2 bg-red-50 text-red-800 p-3 rounded-md text-sm">
+                    <div className="mt-4 flex items-start gap-2 bg-[#0e1424] border border-red-500/30 p-3 rounded-md text-sm text-red-400">
                       <AlertTriangle className="h-5 w-5 mt-0.5 flex-shrink-0" />
                       <p>
-                        Terjadi kesalahan saat memverifikasi tanda tangan kolektif. Periksa kembali file dan tanda tangan
-                        yang dimasukkan.
+                        Terjadi kesalahan saat memverifikasi tanda tangan
+                        kolektif. Periksa kembali file dan tanda tangan yang
+                        dimasukkan.
                       </p>
                     </div>
                   ) : (
-                    <p className="mt-3 text-xs text-slate-500">
-                      Hasil verifikasi tanda tangan kolektif. Pastikan semua bagian tanda tangan terverifikasi dengan benar.
+                    <p className="mt-3 text-xs text-[#d4af37]/60">
+                      Hasil verifikasi tanda tangan kolektif. Pastikan semua
+                      bagian tanda tangan terverifikasi dengan benar.
                     </p>
                   )}
                 </div>
@@ -166,7 +229,16 @@ export default function VerifyCollectivePage() {
             )}
           </div>
         </div>
+
+        {/* Footer */}
+        <div className="mt-12 text-center">
+          <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent mx-auto mb-4"></div>
+          <p className="text-[#d4af37]/50 text-sm">
+            © {new Date().getFullYear()} Digital Signature System • Aman dan
+            Terenkripsi
+          </p>
+        </div>
       </div>
     </div>
-  )
+  );
 }

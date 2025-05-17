@@ -14,6 +14,7 @@ import {
   Type,
   User,
   Sliders,
+  FileDigit,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -177,27 +178,61 @@ export default function SignVisibleWatermarkPage() {
   }, [localPreviewUrl, watermarkText, opacity, fontSize, designerName]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-[#0e1424] to-[#0a0e18] py-6 px-4 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-[#d4af37]/5 blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-64 h-64 rounded-full bg-[#d4af37]/5 blur-3xl"></div>
+        <div className="absolute top-1/4 right-1/4 w-40 h-40 rounded-full bg-[#b8860b]/5 blur-3xl"></div>
+
+        {/* Gold accent lines */}
+        <div className="absolute top-20 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/20 to-transparent"></div>
+        <div className="absolute bottom-20 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/20 to-transparent"></div>
+      </div>
+
       <div className="max-w-3xl mx-auto">
-        <div className="mb-8">
+        {/* Header with logo and back button */}
+        <div className="mb-8 flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center text-slate-600 hover:text-slate-900 transition-colors"
+            className="inline-flex items-center text-[#d4af37] hover:text-[#f0d77c] transition-colors"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             <span>Kembali ke Beranda</span>
           </Link>
+          <div className="flex items-center">
+            <FileDigit className="h-6 w-6 text-[#d4af37] mr-2" />
+            <span className="text-[#d4af37] font-semibold text-lg">
+              Digital Signature
+            </span>
+          </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-          <div className="bg-gradient-to-r from-red-500 to-red-600 px-6 py-5 text-white">
-            <div className="flex items-center gap-3">
+        {/* Main title */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-[#d4af37] mb-2">
+            Tanda Tangan dengan Watermark
+          </h1>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#b8860b] to-[#d4af37] mx-auto"></div>
+        </div>
+
+        <div className="bg-[#131b2e] rounded-2xl shadow-xl shadow-black/40 overflow-hidden border border-[#d4af37]/20 backdrop-blur-sm relative">
+          {/* Subtle corner accents */}
+          <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#d4af37]/40 rounded-tl-md"></div>
+          <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#d4af37]/40 rounded-tr-md"></div>
+          <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#d4af37]/40 rounded-bl-md"></div>
+          <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#d4af37]/40 rounded-br-md"></div>
+
+          {/* Header */}
+          <div className="bg-gradient-to-r from-[#b8860b] to-[#d4af37] px-6 py-5 text-black relative">
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjMDAwMDAwMTAiPjwvcmVjdD4KPHBhdGggZD0iTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVoiIHN0cm9rZT0iIzAwMDAwMDEwIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+')] opacity-30"></div>
+            <div className="flex items-center gap-3 relative z-10">
               <ImageIcon className="h-6 w-6" />
               <h1 className="text-2xl font-bold">
                 Tanda Tangan Gambar dengan Watermark
               </h1>
             </div>
-            <p className="mt-1 text-red-100">
+            <p className="mt-1 text-[#1a1a1a] relative z-10">
               Tambahkan watermark yang terlihat pada gambar untuk perlindungan
               dan identifikasi
             </p>
@@ -209,11 +244,11 @@ export default function SignVisibleWatermarkPage() {
               <div>
                 <label
                   htmlFor="file"
-                  className="block text-sm font-medium text-slate-700 mb-1"
+                  className="block text-sm font-medium text-[#d4af37] mb-1"
                 >
                   Pilih Gambar
                 </label>
-                <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-red-500 transition-colors">
+                <div className="border-2 border-dashed border-[#d4af37]/40 rounded-lg p-6 text-center hover:border-[#d4af37] transition-colors bg-[#0e1424]/50">
                   <input
                     id="file"
                     type="file"
@@ -223,13 +258,13 @@ export default function SignVisibleWatermarkPage() {
                     className="hidden"
                   />
                   <label htmlFor="file" className="cursor-pointer">
-                    <Upload className="h-10 w-10 text-slate-400 mx-auto mb-2" />
-                    <p className="text-sm text-slate-600 mb-1">
+                    <Upload className="h-10 w-10 text-[#d4af37]/70 mx-auto mb-2" />
+                    <p className="text-sm text-[#d4af37]/90 mb-1">
                       {file
                         ? file.name
                         : "Klik untuk memilih gambar atau tarik dan lepas gambar di sini"}
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-[#d4af37]/70">
                       {file
                         ? `${(file.size / 1024).toFixed(2)} KB`
                         : "JPG, PNG, dan format gambar lainnya didukung"}
@@ -239,10 +274,10 @@ export default function SignVisibleWatermarkPage() {
               </div>
 
               {/* Watermark Settings Form */}
-              <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
+              <div className="bg-[#0e1424]/80 rounded-lg p-4 border border-[#d4af37]/30">
                 <div className="flex items-center gap-2 mb-4">
-                  <Settings className="h-5 w-5 text-red-600" />
-                  <h3 className="font-medium text-slate-900">
+                  <Settings className="h-5 w-5 text-[#d4af37]" />
+                  <h3 className="font-medium text-[#d4af37]">
                     Pengaturan Watermark
                   </h3>
                 </div>
@@ -252,9 +287,9 @@ export default function SignVisibleWatermarkPage() {
                   <div>
                     <label
                       htmlFor="watermarkText"
-                      className="text-sm font-medium text-slate-700 mb-1 flex items-center gap-1.5"
+                      className="text-sm font-medium text-[#d4af37] mb-1 flex items-center gap-1.5"
                     >
-                      <Type className="h-4 w-4 text-red-600" />
+                      <Type className="h-4 w-4 text-[#d4af37]" />
                       Watermark Text
                     </label>
                     <input
@@ -262,7 +297,7 @@ export default function SignVisibleWatermarkPage() {
                       type="text"
                       value={watermarkText}
                       onChange={(e) => setWatermarkText(e.target.value)}
-                      className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                      className="w-full p-2 border border-[#d4af37]/30 rounded-md bg-[#0e1424] text-[#e0c56e] placeholder:text-[#d4af37]/50 focus:outline-none focus:ring-2 focus:ring-[#d4af37] transition-all"
                       placeholder="Masukkan teks watermark"
                     />
                   </div>
@@ -271,9 +306,9 @@ export default function SignVisibleWatermarkPage() {
                   <div>
                     <label
                       htmlFor="opacity"
-                      className="text-sm font-medium text-slate-700 mb-1 flex items-center gap-1.5"
+                      className="text-sm font-medium text-[#d4af37] mb-1 flex items-center gap-1.5"
                     >
-                      <Sliders className="h-4 w-4 text-red-600" />
+                      <Sliders className="h-4 w-4 text-[#d4af37]" />
                       Opacity ({(Number.parseFloat(opacity) * 100).toFixed(0)}%)
                     </label>
                     <input
@@ -284,7 +319,7 @@ export default function SignVisibleWatermarkPage() {
                       step="0.1"
                       value={opacity}
                       onChange={(e) => setOpacity(e.target.value)}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+                      className="w-full h-2 bg-[#0e1424] rounded-lg appearance-none cursor-pointer accent-[#d4af37]"
                     />
                   </div>
 
@@ -292,9 +327,9 @@ export default function SignVisibleWatermarkPage() {
                   <div>
                     <label
                       htmlFor="fontSize"
-                      className="text-sm font-medium text-slate-700 mb-1 flex items-center gap-1.5"
+                      className="text-sm font-medium text-[#d4af37] mb-1 flex items-center gap-1.5"
                     >
-                      <Type className="h-4 w-4 text-red-600" />
+                      <Type className="h-4 w-4 text-[#d4af37]" />
                       Font Size ({fontSize}px)
                     </label>
                     <input
@@ -305,7 +340,7 @@ export default function SignVisibleWatermarkPage() {
                       step="2"
                       value={fontSize}
                       onChange={(e) => setFontSize(e.target.value)}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+                      className="w-full h-2 bg-[#0e1424] rounded-lg appearance-none cursor-pointer accent-[#d4af37]"
                     />
                   </div>
 
@@ -313,9 +348,9 @@ export default function SignVisibleWatermarkPage() {
                   <div>
                     <label
                       htmlFor="designerName"
-                      className="text-sm font-medium text-slate-700 mb-1 flex items-center gap-1.5"
+                      className="text-sm font-medium text-[#d4af37] mb-1 flex items-center gap-1.5"
                     >
-                      <User className="h-4 w-4 text-red-600" />
+                      <User className="h-4 w-4 text-[#d4af37]" />
                       Designer Name
                     </label>
                     <input
@@ -323,7 +358,7 @@ export default function SignVisibleWatermarkPage() {
                       type="text"
                       value={designerName}
                       onChange={(e) => setDesignerName(e.target.value)}
-                      className="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                      className="w-full p-2 border border-[#d4af37]/30 rounded-md bg-[#0e1424] text-[#e0c56e] placeholder:text-[#d4af37]/50 focus:outline-none focus:ring-2 focus:ring-[#d4af37] transition-all"
                       placeholder="Masukkan nama designer"
                     />
                   </div>
@@ -334,7 +369,7 @@ export default function SignVisibleWatermarkPage() {
               <button
                 onClick={handleUpload}
                 disabled={!file || loading}
-                className="w-full flex items-center justify-center gap-2 bg-red-500 text-white py-3 px-4 rounded-lg hover:bg-red-600 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#b8860b] to-[#d4af37] text-black py-3.5 px-4 rounded-lg hover:from-[#d4af37] hover:to-[#f0d77c] transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium"
               >
                 {loading ? (
                   <>
@@ -351,16 +386,16 @@ export default function SignVisibleWatermarkPage() {
 
               {/* Preview Section */}
               {previewUrl && (
-                <div className="mt-8 border border-slate-200 rounded-lg overflow-hidden">
-                  <div className="bg-slate-50 px-4 py-3 border-b border-slate-200">
-                    <h2 className="font-medium text-slate-900 flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
+                <div className="mt-8 border border-[#d4af37]/30 rounded-lg overflow-hidden bg-[#0c1526]/50">
+                  <div className="bg-[#131b2e] px-4 py-3 border-b border-[#d4af37]/30">
+                    <h2 className="font-medium text-[#d4af37] flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-[#d4af37]" />
                       Hasil Watermark
                     </h2>
                   </div>
 
                   <div className="p-4">
-                    <div className="bg-slate-800 p-2 rounded-lg mb-4">
+                    <div className="bg-[#0e1424] p-2 rounded-lg mb-4 border border-[#d4af37]/20">
                       <Image
                         src={previewUrl || "/placeholder.svg"}
                         alt="Watermarked"
@@ -374,11 +409,11 @@ export default function SignVisibleWatermarkPage() {
                     <div className="flex flex-col sm:flex-row gap-3">
                       <button
                         onClick={handleCopyBase64}
-                        className="flex-1 flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 py-2.5 px-4 rounded-lg transition-colors"
+                        className="flex-1 flex items-center justify-center gap-2 bg-[#0e1424] border border-[#d4af37]/30 hover:border-[#d4af37] text-[#d4af37] py-2.5 px-4 rounded-lg transition-colors"
                       >
                         {copySuccess ? (
                           <>
-                            <CheckCircle className="h-5 w-5 text-green-500" />
+                            <CheckCircle className="h-5 w-5 text-[#d4af37]" />
                             <span>Tersalin!</span>
                           </>
                         ) : (
@@ -390,7 +425,7 @@ export default function SignVisibleWatermarkPage() {
                       </button>
                       <button
                         onClick={handleDownload}
-                        className="flex-1 flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white py-2.5 px-4 rounded-lg transition-colors"
+                        className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-[#b8860b] to-[#d4af37] text-black py-2.5 px-4 rounded-lg transition-colors hover:from-[#d4af37] hover:to-[#f0d77c]"
                       >
                         <Download className="h-5 w-5" />
                         <span>Unduh Gambar</span>
@@ -402,20 +437,20 @@ export default function SignVisibleWatermarkPage() {
 
               {/* Preview Watermark */}
               {localPreviewUrl && (
-                <div className="mt-6 border border-slate-200 rounded-lg overflow-hidden">
-                  <div className="bg-slate-50 px-4 py-3 border-b border-slate-200">
-                    <h2 className="font-medium text-slate-900 flex items-center gap-2">
-                      <ImageIcon className="h-5 w-5 text-red-600" />
+                <div className="mt-6 border border-[#d4af37]/30 rounded-lg overflow-hidden bg-[#0c1526]/50">
+                  <div className="bg-[#131b2e] px-4 py-3 border-b border-[#d4af37]/30">
+                    <h2 className="font-medium text-[#d4af37] flex items-center gap-2">
+                      <ImageIcon className="h-5 w-5 text-[#d4af37]" />
                       <span>Preview Watermark</span>
                     </h2>
                   </div>
                   <div className="p-4">
-                    <div className="bg-slate-800 p-2 rounded-lg">
+                    <div className="bg-[#0e1424] p-2 rounded-lg border border-[#d4af37]/20">
                       <canvas
                         ref={canvasRef}
                         className="w-full h-auto rounded"
                       />
-                      <p className="text-xs text-slate-400 mt-2 text-center">
+                      <p className="text-xs text-[#d4af37]/60 mt-2 text-center">
                         Preview sebelum upload. Hasil akhir mungkin sedikit
                         berbeda.
                       </p>
@@ -425,6 +460,15 @@ export default function SignVisibleWatermarkPage() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-12 text-center">
+          <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent mx-auto mb-4"></div>
+          <p className="text-[#d4af37]/50 text-sm">
+            © {new Date().getFullYear()} Digital Signature System • Aman dan
+            Terenkripsi
+          </p>
         </div>
       </div>
     </div>
