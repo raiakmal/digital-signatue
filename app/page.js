@@ -746,9 +746,9 @@ export default function Home() {
             {/* Testimonial 1 */}
             <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
               <p className="mb-4 text-gray-300">
-                "Layanan ini telah membantu saya melindungi koleksi terbaru saya
+                &quot;Layanan ini telah membantu saya melindungi koleksi terbaru saya
                 dari peniruan. Sangat mudah digunakan dan memberikan ketenangan
-                pikiran."
+                pikiran.&quot;
               </p>
               <div className="flex items-center">
                 <div className="h-10 w-10 rounded-full bg-[#D4AF37]" />
@@ -762,9 +762,9 @@ export default function Home() {
             {/* Testimonial 2 */}
             <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
               <p className="mb-4 text-gray-300">
-                "Sebagai desainer independen, perlindungan karya adalah
+                &quot;Sebagai desainer independen, perlindungan karya adalah
                 prioritas utama. Layanan ini memberikan solusi yang terjangkau
-                dan efektif."
+                dan efektif.&quot;
               </p>
               <div className="flex items-center">
                 <div className="h-10 w-10 rounded-full bg-[#D4AF37]" />
@@ -778,9 +778,9 @@ export default function Home() {
             {/* Testimonial 3 */}
             <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
               <p className="mb-4 text-gray-300">
-                "Sertifikat digital dari layanan ini telah membantu brand saya
+                &quot;Sertifikat digital dari layanan ini telah membantu brand saya
                 membuktikan keaslian produk kepada pelanggan. Sangat
-                direkomendasikan!"
+                direkomendasikan!&quot;
               </p>
               <div className="flex items-center">
                 <div className="h-10 w-10 rounded-full bg-[#D4AF37]" />
