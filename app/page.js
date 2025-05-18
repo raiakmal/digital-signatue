@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import AOS from 'aos';
 import {
   ArrowRight,
   Menu,
@@ -26,6 +27,29 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("tab1");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Initialize AOS with faster configuration
+  useEffect(() => {
+    AOS.init({
+      duration: 500, // Reduced from 800 to 500ms
+      once: false,
+      easing: 'ease-out', // Changed to ease-out for snappier animations
+      mirror: true,
+    });
+    
+    // Set loaded state with shorter delay
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 50); // Reduced from 100ms to 50ms
+  }, []);
+
+  // Refresh AOS when loaded state changes
+  useEffect(() => {
+    if (isLoaded) {
+      AOS.refresh();
+    }
+  }, [isLoaded]);
 
   // Router handler functions from original page
   const handleSign = () => {
@@ -73,11 +97,13 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Navbar */}
+      {/* Navbar with initial animation */}
       <header
         className={`fixed top-0 z-50 w-full transition-all duration-300 ${
           isScrolled ? "bg-black/95 shadow-md" : "bg-transparent"
         }`}
+        data-aos="fade-down"
+        data-aos-duration="600"
       >
         <div className="container mx-auto flex h-20 items-center justify-between px-4">
           <Link href="/" className="font-serif text-2xl font-bold text-white">
@@ -189,7 +215,7 @@ export default function Home() {
         )}
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section with initial load animations */}
       <section
         id="home"
         className="relative overflow-hidden bg-black pt-20 text-white"
@@ -203,19 +229,31 @@ export default function Home() {
         />
         <div className="container relative z-10 mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 flex justify-center">
+            <div className={`mb-6 flex justify-center ${isLoaded ? 'animate-fade-in-down' : 'opacity-0'}`} style={{animationDelay: '50ms'}}>
               <div className="h-1 w-24 bg-gradient-to-r from-[#D4AF37] to-[#F5E7A3]"></div>
             </div>
-            <h1 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            <h1 
+              className={`font-serif text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl ${isLoaded ? 'animate-fade-in-up' : 'opacity-0'}`} 
+              style={{animationDelay: '150ms'}}
+            >
               Perlindungan Dokumen Kolaboratif di Industri Fashion Digital
             </h1>
-            <h2 className="mt-4 font-serif text-xl font-semibold text-[#D4AF37] sm:text-2xl md:text-3xl">
+            <h2 
+              className={`mt-4 font-serif text-xl font-semibold text-[#D4AF37] sm:text-2xl md:text-3xl ${isLoaded ? 'animate-fade-in-up' : 'opacity-0'}`}
+              style={{animationDelay: '250ms'}}
+            >
               Menggunakan Digital Signature ECDSA dan Hash Function BLAKE3
             </h2>
-            <p className="mt-6 text-xl text-gray-300">
+            <p 
+              className={`mt-6 text-xl text-gray-300 ${isLoaded ? 'animate-fade-in-up' : 'opacity-0'}`}
+              style={{animationDelay: '350ms'}}
+            >
               SHIELD: Secure Hash for Integrated Electronic Design Protection
             </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div 
+              className={`mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row ${isLoaded ? 'animate-fade-in-up' : 'opacity-0'}`}
+              style={{animationDelay: '450ms'}}
+            >
               <Button
                 className="w-full bg-[#D4AF37] text-black hover:bg-[#C5A028] sm:w-auto"
                 onClick={handleSign}
@@ -244,13 +282,13 @@ export default function Home() {
       <section id="about" className="bg-gray-900 py-20 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl" data-aos="fade-up">
               Tentang SHIELD
             </h2>
-            <div className="mt-2 mb-6 flex justify-center">
+            <div className="mt-2 mb-6 flex justify-center" data-aos="fade-up" data-aos-delay="100">
               <div className="h-1 w-16 bg-gradient-to-r from-[#D4AF37] to-[#F5E7A3]"></div>
             </div>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-4 text-lg text-gray-300" data-aos="fade-up" data-aos-delay="200">
               SHIELD (Secure Hash for Integrated Electronic Design Protection)
               adalah platform perlindungan dokumen kolaboratif yang dirancang
               khusus untuk industri fashion digital. Kami menggunakan teknologi
@@ -259,7 +297,7 @@ export default function Home() {
             </p>
           </div>
           <div className="mt-12 grid gap-8 md:grid-cols-2">
-            <div className="rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-sm">
+            <div className="rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-sm" data-aos="fade-right" data-aos-delay="300">
               <h3 className="mb-4 font-serif text-xl font-semibold text-white">
                 Visi Kami
               </h3>
@@ -269,7 +307,7 @@ export default function Home() {
                 digital yang elegan dan efektif.
               </p>
             </div>
-            <div className="rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-sm">
+            <div className="rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-sm" data-aos="fade-left" data-aos-delay="400">
               <h3 className="mb-4 font-serif text-xl font-semibold text-white">
                 Misi Kami
               </h3>
@@ -287,19 +325,19 @@ export default function Home() {
       <section id="features" className="bg-gray-900 py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl" data-aos="fade-up">
               Sertifikasi Digital untuk Karya Fashion Anda
             </h2>
-            <div className="mt-2 mb-6 flex justify-center">
+            <div className="mt-2 mb-6 flex justify-center" data-aos="fade-up" data-aos-delay="100">
               <div className="h-1 w-16 bg-gradient-to-r from-[#D4AF37] to-[#F5E7A3]"></div>
             </div>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-4 text-lg text-gray-300" data-aos="fade-up" data-aos-delay="200">
               Perlindungan gaya dan desain Anda dengan teknologi tanda tangan
               digital
             </p>
           </div>
 
-          <div className="mt-12">
+          <div className="mt-12" data-aos="fade-up" data-aos-delay="300">
             <Tabs defaultValue="tab1" className="w-full">
               <div className="mb-8 flex justify-center">
                 <TabsList className="grid w-full max-w-3xl grid-cols-2 gap-2 bg-white p-1 md:grid-cols-4">
@@ -332,7 +370,7 @@ export default function Home() {
 
               <TabsContent value="tab1" className="mt-6">
                 <div className="grid gap-8 md:grid-cols-2">
-                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md">
+                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md" data-aos="fade-right" data-aos-delay="400">
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-black text-[#D4AF37]">
                       <FileDigit className="h-6 w-6" />
                     </div>
@@ -356,7 +394,7 @@ export default function Home() {
                     </button>
                   </div>
 
-                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md">
+                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md" data-aos="fade-left" data-aos-delay="500">
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-black text-[#D4AF37]">
                       <Users className="h-6 w-6" />
                     </div>
@@ -383,7 +421,7 @@ export default function Home() {
 
               <TabsContent value="tab2" className="mt-6">
                 <div className="grid gap-8 md:grid-cols-2">
-                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md">
+                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md" data-aos="fade-right" data-aos-delay="400">
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-black text-[#D4AF37]">
                       <ShieldCheck className="h-6 w-6" />
                     </div>
@@ -406,7 +444,7 @@ export default function Home() {
                     </button>
                   </div>
 
-                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md">
+                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md" data-aos="fade-left" data-aos-delay="500">
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-black text-[#D4AF37]">
                       <CheckSquare className="h-6 w-6" />
                     </div>
@@ -433,7 +471,7 @@ export default function Home() {
 
               <TabsContent value="tab3" className="mt-6">
                 <div className="grid gap-8 md:grid-cols-2">
-                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md">
+                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md" data-aos="fade-right" data-aos-delay="400">
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-black text-[#D4AF37]">
                       <ImageIcon className="h-6 w-6" />
                     </div>
@@ -456,7 +494,7 @@ export default function Home() {
                     </button>
                   </div>
 
-                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md">
+                  <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md" data-aos="fade-left" data-aos-delay="500">
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-black text-[#D4AF37]">
                       <Stamp className="h-6 w-6" />
                     </div>
@@ -482,7 +520,7 @@ export default function Home() {
               </TabsContent>
 
               <TabsContent value="tab4" className="mt-6">
-                <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md">
+                <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-800 p-6 shadow-md" data-aos="fade-up">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-black text-[#D4AF37]">
                     <QrCode className="h-6 w-6" />
                   </div>
@@ -552,20 +590,20 @@ export default function Home() {
       <section id="how-it-works" className="bg-black py-20 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl" data-aos="fade-up">
               Bagaimana Cara Kerjanya
             </h2>
-            <div className="mt-2 mb-6 flex justify-center">
+            <div className="mt-2 mb-6 flex justify-center" data-aos="fade-up" data-aos-delay="100">
               <div className="h-1 w-16 bg-gradient-to-r from-[#D4AF37] to-[#F5E7A3]"></div>
             </div>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-4 text-lg text-gray-300" data-aos="fade-up" data-aos-delay="200">
               Proses sederhana untuk melindungi karya fashion Anda secara
               digital
             </p>
           </div>
           <div className="mt-16 grid gap-8 md:grid-cols-3">
             {/* Step 1 */}
-            <div className="text-center">
+            <div className="text-center" data-aos="fade-up" data-aos-delay="300">
               <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                 <span className="font-serif text-xl font-bold">1</span>
               </div>
@@ -579,7 +617,7 @@ export default function Home() {
             </div>
 
             {/* Step 2 */}
-            <div className="text-center">
+            <div className="text-center" data-aos="fade-up" data-aos-delay="400">
               <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                 <span className="font-serif text-xl font-bold">2</span>
               </div>
@@ -593,7 +631,7 @@ export default function Home() {
             </div>
 
             {/* Step 3 */}
-            <div className="text-center">
+            <div className="text-center" data-aos="fade-up" data-aos-delay="500">
               <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                 <span className="font-serif text-xl font-bold">3</span>
               </div>
@@ -613,18 +651,18 @@ export default function Home() {
       <section className="bg-gradient-to-r from-gray-900 to-black py-20 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 flex justify-center">
+            <div className="mb-6 flex justify-center" data-aos="fade-down">
               <div className="h-1 w-24 bg-gradient-to-r from-[#D4AF37] to-[#F5E7A3]"></div>
             </div>
-            <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl" data-aos="fade-up" data-aos-delay="100">
               Keamanan Kelas Atas untuk Desain Anda
             </h2>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-4 text-lg text-gray-300" data-aos="fade-up" data-aos-delay="200">
               Teknologi enkripsi terkini untuk melindungi karya fashion Anda
             </p>
           </div>
           <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all hover:border-[#D4AF37]/30 hover:shadow-xl">
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all hover:border-[#D4AF37]/30 hover:shadow-xl" data-aos="fade-up" data-aos-delay="300">
               <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -649,7 +687,7 @@ export default function Home() {
                 dapat dipecahkan.
               </p>
             </div>
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all hover:border-[#D4AF37]/30 hover:shadow-xl">
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all hover:border-[#D4AF37]/30 hover:shadow-xl" data-aos="fade-up" data-aos-delay="400">
               <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -674,7 +712,7 @@ export default function Home() {
                 dapat dipalsukan.
               </p>
             </div>
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all hover:border-[#D4AF37]/30 hover:shadow-xl">
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all hover:border-[#D4AF37]/30 hover:shadow-xl" data-aos="fade-up" data-aos-delay="500">
               <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -699,7 +737,7 @@ export default function Home() {
                 dapat dimanipulasi.
               </p>
             </div>
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all hover:border-[#D4AF37]/30 hover:shadow-xl">
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all hover:border-[#D4AF37]/30 hover:shadow-xl" data-aos="fade-up" data-aos-delay="600">
               <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -732,19 +770,19 @@ export default function Home() {
       <section id="testimonials" className="bg-black py-20 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl" data-aos="fade-up">
               Dipercaya oleh Desainer Fashion
             </h2>
-            <div className="mt-2 mb-6 flex justify-center">
+            <div className="mt-2 mb-6 flex justify-center" data-aos="fade-up" data-aos-delay="100">
               <div className="h-1 w-16 bg-gradient-to-r from-[#D4AF37] to-[#F5E7A3]"></div>
             </div>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-4 text-lg text-gray-300" data-aos="fade-up" data-aos-delay="200">
               Lihat apa kata para desainer tentang layanan kami
             </p>
           </div>
           <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Testimonial 1 */}
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6" data-aos="fade-up" data-aos-delay="300">
               <p className="mb-4 text-gray-300">
                 "Layanan ini telah membantu saya melindungi koleksi terbaru saya
                 dari peniruan. Sangat mudah digunakan dan memberikan ketenangan
@@ -760,7 +798,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 2 */}
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6" data-aos="fade-up" data-aos-delay="400">
               <p className="mb-4 text-gray-300">
                 "Sebagai desainer independen, perlindungan karya adalah
                 prioritas utama. Layanan ini memberikan solusi yang terjangkau
@@ -776,7 +814,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 3 */}
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6" data-aos="fade-up" data-aos-delay="500">
               <p className="mb-4 text-gray-300">
                 "Sertifikat digital dari layanan ini telah membantu brand saya
                 membuktikan keaslian produk kepada pelanggan. Sangat
@@ -798,14 +836,14 @@ export default function Home() {
       <section className="bg-gradient-to-r from-black to-gray-900 py-16 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl" data-aos="fade-up">
               Lindungi Karya Fashion Anda Sekarang
             </h2>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-4 text-lg text-gray-300" data-aos="fade-up" data-aos-delay="100">
               Mulai perjalanan melindungi desain fashion Anda dengan tanda
               tangan digital
             </p>
-            <div className="mt-8">
+            <div className="mt-8" data-aos="fade-up" data-aos-delay="200">
               <Button
                 className="bg-[#D4AF37] text-black hover:bg-[#C5A028]"
                 onClick={handleSign}

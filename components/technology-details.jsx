@@ -5,13 +5,13 @@ export function TechnologyDetails() {
     <section className="bg-black py-20 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl" data-aos="fade-up" data-aos-duration="400">
             Teknologi di Balik SHIELD
           </h2>
-          <div className="mt-2 mb-6 flex justify-center">
+          <div className="mt-2 mb-6 flex justify-center" data-aos="fade-up" data-aos-delay="50">
             <div className="h-1 w-16 bg-gradient-to-r from-[#D4AF37] to-[#F5E7A3]"></div>
           </div>
-          <p className="mt-4 text-lg text-gray-300">
+          <p className="mt-4 text-lg text-gray-300" data-aos="fade-up" data-aos-delay="100">
             SHIELD menggunakan teknologi kriptografi canggih untuk menjamin
             keamanan dan autentikasi karya digital Anda
           </p>
@@ -19,7 +19,7 @@ export function TechnologyDetails() {
 
         <div className="mt-16 grid gap-8 md:grid-cols-2">
           {/* ECDSA Technology */}
-          <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg">
+          <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg" data-aos="fade-right" data-aos-delay="150">
             <div className="mb-6 flex items-center justify-between">
               <h3 className="font-serif text-2xl font-bold text-white">
                 ECDSA
@@ -46,7 +46,7 @@ export function TechnologyDetails() {
               aman, efisien, dan tidak dapat dipalsukan.
             </p>
             <div className="space-y-3">
-              <div className="flex items-start">
+              <div className="flex items-start" data-aos="fade-up" data-aos-delay="200">
                 <div className="mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                   <span className="text-xs font-bold">1</span>
                 </div>
@@ -58,7 +58,7 @@ export function TechnologyDetails() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start">
+              <div className="flex items-start" data-aos="fade-up" data-aos-delay="250">
                 <div className="mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                   <span className="text-xs font-bold">2</span>
                 </div>
@@ -70,7 +70,7 @@ export function TechnologyDetails() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start">
+              <div className="flex items-start" data-aos="fade-up" data-aos-delay="300">
                 <div className="mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                   <span className="text-xs font-bold">3</span>
                 </div>
@@ -86,7 +86,7 @@ export function TechnologyDetails() {
           </div>
 
           {/* BLAKE3 Technology */}
-          <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg">
+          <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg" data-aos="fade-left" data-aos-delay="150">
             <div className="mb-6 flex items-center justify-between">
               <h3 className="font-serif text-2xl font-bold text-white">
                 BLAKE3
@@ -112,7 +112,7 @@ export function TechnologyDetails() {
               desain.
             </p>
             <div className="space-y-3">
-              <div className="flex items-start">
+              <div className="flex items-start" data-aos="fade-up" data-aos-delay="200">
                 <div className="mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                   <span className="text-xs font-bold">1</span>
                 </div>
@@ -124,7 +124,7 @@ export function TechnologyDetails() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start">
+              <div className="flex items-start" data-aos="fade-up" data-aos-delay="250">
                 <div className="mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                   <span className="text-xs font-bold">2</span>
                 </div>
@@ -136,7 +136,7 @@ export function TechnologyDetails() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start">
+              <div className="flex items-start" data-aos="fade-up" data-aos-delay="300">
                 <div className="mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37]">
                   <span className="text-xs font-bold">3</span>
                 </div>
@@ -154,7 +154,7 @@ export function TechnologyDetails() {
           </div>
         </div>
 
-        <div className="mt-12 rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg">
+        <div className="mt-12 rounded-lg border border-gray-800 bg-gray-900 p-6 shadow-lg" data-aos="fade-up" data-aos-delay="150">
           <h3 className="mb-4 font-serif text-xl font-bold text-white">
             Bagaimana Keduanya Bekerja Bersama
           </h3>
@@ -163,7 +163,7 @@ export function TechnologyDetails() {
             sistem perlindungan dokumen fashion digital yang komprehensif:
           </p>
           <ol className="space-y-4 text-gray-300">
-            <li className="flex items-start">
+            <li className="flex items-start" data-aos="fade-up" data-aos-delay="200">
               <span className="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-bold">
                 1
               </span>
@@ -172,7 +172,7 @@ export function TechnologyDetails() {
                 identitas digital
               </span>
             </li>
-            <li className="flex items-start">
+            <li className="flex items-start" data-aos="fade-up" data-aos-delay="250">
               <span className="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-bold">
                 2
               </span>
@@ -181,7 +181,7 @@ export function TechnologyDetails() {
                 menghasilkan tanda tangan digital yang tidak dapat dipalsukan
               </span>
             </li>
-            <li className="flex items-start">
+            <li className="flex items-start" data-aos="fade-up" data-aos-delay="300">
               <span className="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-bold">
                 3
               </span>

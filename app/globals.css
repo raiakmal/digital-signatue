@@ -1,5 +1,37 @@
 @import "tailwindcss";
+@import "aos/dist/aos.css";
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom animations for initial page load with faster durations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards; /* Reduced from 0.8s to 0.5s */
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.5s ease-out forwards; /* Reduced from 0.8s to 0.5s */
 }
