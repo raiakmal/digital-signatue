@@ -14,6 +14,7 @@ import {
   FileDigit,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SignCollectiveWatermarkPage() {
   const [file, setFile] = useState(null);
@@ -151,12 +152,12 @@ export default function SignCollectiveWatermarkPage() {
               </h3>
               <ul className="mt-2 text-xs text-[#d4af37]/80 list-disc pl-5 space-y-1">
                 <li>
-                  Designer: Pilih role "designer", upload file dan isi info
-                  pemilik. Salin tanda tangan yang dihasilkan.
+                  Designer: Pilih role &quot;designer&quot;, upload file dan isi
+                  info pemilik. Salin tanda tangan yang dihasilkan.
                 </li>
                 <li>
-                  Brand: Pilih role "brand", upload file yang sama, dan pasang
-                  tanda tangan designer yang sudah dibuat sebelumnya.
+                  Brand: Pilih role &quot;brand&quot;, upload file yang sama,
+                  dan pasang tanda tangan designer yang sudah dibuat sebelumnya.
                 </li>
               </ul>
             </div>
@@ -326,11 +327,18 @@ export default function SignCollectiveWatermarkPage() {
                         Gambar dengan Watermark:
                       </h3>
                       <div className="border border-[#d4af37]/20 rounded-lg p-2 bg-[#0e1424]">
-                        <img
+                        <Image
                           src={result.watermarkedImage}
                           alt="Gambar Dengan Watermark"
-                          className="max-w-full rounded mx-auto"
-                          style={{ maxHeight: "400px" }}
+                          width={600}
+                          height={400}
+                          className="rounded mx-auto"
+                          style={{
+                            maxHeight: "400px",
+                            height: "auto",
+                            width: "auto",
+                          }}
+                          unoptimized
                         />
                       </div>
                       <div className="mt-2 flex justify-end">

@@ -15,6 +15,7 @@ import {
   Calendar,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SignFilePage() {
   const [file, setFile] = useState(null);
@@ -100,10 +101,13 @@ export default function SignFilePage() {
     if (fileType.startsWith("image/")) {
       return (
         <div className="h-full flex items-center justify-center p-4">
-          <img
+          <Image
             src={previewUrl}
             alt="Preview"
+            width={800}
+            height={600}
             className="max-w-full max-h-[600px] object-contain border rounded shadow"
+            unoptimized
           />
         </div>
       );
@@ -128,8 +132,8 @@ export default function SignFilePage() {
           Preview tidak tersedia
         </h3>
         <p className="text-sm text-slate-500">
-          Tipe file "{file.name.split(".").pop()}" tidak dapat ditampilkan dalam
-          preview
+          Tipe file &quot;{file.name.split(".").pop()}&quot; tidak dapat
+          ditampilkan dalam preview
         </p>
       </div>
     );
@@ -489,10 +493,13 @@ export default function SignFilePage() {
                           </label>
                         </div>
                         <div className="flex justify-center bg-[#0e1424] border border-[#d4af37]/20 p-3 rounded-md">
-                          <img
+                          <Image
                             src={qrCode}
                             alt="QR Code"
+                            width={200}
+                            height={200}
                             className="max-w-[200px]"
+                            unoptimized
                           />
                         </div>
                       </div>
